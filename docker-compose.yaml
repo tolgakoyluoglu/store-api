@@ -1,7 +1,7 @@
 services:
-  bugs-api:
+  store_api:
     image: api:latest
-    container_name: api
+    container_name: store_api
     build: .
     command: npm run dev
     restart: unless-stopped
@@ -10,20 +10,20 @@ services:
     ports:
       - '${PORT}:${PORT}'
     depends_on:
-      - 'redis'
-      - 'postgres'
+      - 'store_redis'
+      - 'store_postgres'
     env_file: .env
     tty: true
 
-  redis:
-    container_name: api_redis
+  store_redis:
+    container_name: store_redis
     image: 'redis:alpine'
     restart: unless-stopped
     ports:
       - '${REDIS_PORT}:${REDIS_PORT}'
 
-  postgres:
-    container_name: api_postgres
+  store_postgres:
+    container_name: store_postgres
     image: postgres:alpine
     restart: unless-stopped
     volumes:
