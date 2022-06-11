@@ -4,8 +4,8 @@ import { internalServerError } from '../helpers/responses'
 
 async function authenticate(req: Request, res: Response, next: NextFunction) {
   try {
-    const { token } = req.cookies
-    if (token) req.me = await session.get(token)
+    const { authToken } = req.cookies
+    if (authToken) req.me = await session.get(authToken)
 
     next()
   } catch (error) {

@@ -2,15 +2,21 @@ import { query } from '../config/postgres'
 import Products from '../types/products'
 
 class ProductService {
-  static async find(data: { category_id: string | null }) {
+  static async find() {
+    let text = `SELECT * FROM products`
+
+    const result = await query(text)
+    return result.rows
+  }
+
+  static async findByCategoryId(data: { category_id: string }) {
     const { category_id } = data
 
-    let text = `SELECT * FROM products`
-    if (category_id) text = `SELECT * FROM products WHERE category_id = $1`
+    const text = `SELECT * FROM products WHERE category_id = $1`
     const values = [category_id]
 
     const result = await query(text, values)
-    return result.rows[0]
+    return result.rows
   }
 
   static async findOne(data: { id: string }) {

@@ -155,7 +155,7 @@ class CustomerController {
       const token = uuidv4()
 
       await session.set(token, sessionData)
-      res.cookie('token', token, cookieConfig)
+      res.cookie('authToken', token, cookieConfig)
       const sessionTokens = [token].concat(customer.sessions)
       customer = await CustomerService.update({ id: customer.id, sessions: sessionTokens })
 
@@ -227,7 +227,7 @@ class CustomerController {
         await CustomerService.update({ id: customer.id, sessions: sessionTokens })
       }
       await session.del(token)
-      res.clearCookie('token')
+      res.clearCookie('authToken')
 
       res.status(204).end()
     } catch (error) {

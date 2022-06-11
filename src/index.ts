@@ -4,9 +4,9 @@ import './config/postgres'
 import './config/redis'
 
 const { NODE_ENV } = process.env
-const allowedOrigins: string[] = ['http://0.0.0.0:3000', 'http://localhost:3000']
+const allowedOrigins: string[] = []
 if (NODE_ENV === 'development' || NODE_ENV === 'staging') {
-  allowedOrigins.push('http://localhost:3000', 'http://0.0.0.0:3000')
+  allowedOrigins.push('http://localhost:8080', 'http://0.0.0.0:8080')
 }
 
 app.use((req, res, next) => {

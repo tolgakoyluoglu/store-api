@@ -58,7 +58,7 @@ class ProductController {
    */
   static async getProducts(req: Request, res: Response) {
     try {
-      const products = await ProductService.find({ category_id: null })
+      const products = await ProductService.find()
       if (!products) return res.status(NOT_FOUND.code).json(NOT_FOUND)
 
       res.json(products)
@@ -88,7 +88,7 @@ class ProductController {
   static async getProductsByCategory(req: Request, res: Response) {
     try {
       const { category_id } = req.params
-      const products = await ProductService.find({ category_id })
+      const products = await ProductService.findByCategoryId({ category_id })
       if (!products) return res.status(NOT_FOUND.code).json(NOT_FOUND)
 
       res.json(products)
@@ -180,8 +180,8 @@ class ProductController {
    */
   static async createProduct(req: Request, res: Response) {
     try {
-      const { id, name, description, category_id, price, stock, image } = req.body
-      const ERROR = missingRequired({ name })
+      const { name, description, category_id, price, stock, image } = req.body
+      const ERROR = missingRequired({ name, description, category_id, price, stock })
       if (ERROR) return res.status(ERROR.code).json(ERROR)
 
       const products: Products = await ProductService.create({
