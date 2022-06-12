@@ -1,4 +1,4 @@
-interface Products {
+interface Product {
   id?: string
   name: string
   category_id: string
@@ -8,4 +8,4 @@ interface Products {
   description: string
 }
 
-export default Products
+export default Product

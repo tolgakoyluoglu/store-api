@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { internalServerError, missingRequired, NOT_FOUND } from '../helpers/responses'
 import ProductService from '../services/product.service'
-import Products from '../types/products'
+import Product from '../types/product'
 
 /**
  * @swagger
@@ -121,7 +121,7 @@ class ProductController {
       const ERROR = missingRequired({ id })
       if (ERROR) return res.status(ERROR.code).json(ERROR)
 
-      const products: Products = await ProductService.findOne({ id })
+      const products: Product = await ProductService.findOne({ id })
       if (!products) return res.status(NOT_FOUND.code).json(NOT_FOUND)
 
       res.json(products)
@@ -184,7 +184,7 @@ class ProductController {
       const ERROR = missingRequired({ name, description, category_id, price, stock })
       if (ERROR) return res.status(ERROR.code).json(ERROR)
 
-      const products: Products = await ProductService.create({
+      const products: Product = await ProductService.create({
         name,
         description,
         category_id,
@@ -253,7 +253,7 @@ class ProductController {
       const ERROR = missingRequired({ id })
       if (ERROR) return res.status(ERROR.code).json(ERROR)
 
-      const products: Products = await ProductService.update({
+      const products: Product = await ProductService.update({
         name,
         description,
         category_id,

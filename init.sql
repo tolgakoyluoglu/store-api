@@ -20,6 +20,9 @@ CREATE TABLE IF NOT EXISTS products (
   price DECIMAL NOT NULL,
   stock INTEGER NOT NULL,
   image TEXT,
+  size TEXT,
+  color TEXT,
+  brand TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 

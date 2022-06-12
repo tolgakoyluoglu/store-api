@@ -1,5 +1,5 @@
 import { query } from '../config/postgres'
-import Products from '../types/products'
+import Product from '../types/product'
 
 class ProductService {
   static async find() {
@@ -29,7 +29,7 @@ class ProductService {
     return result.rows[0]
   }
 
-  static async create(data: Products) {
+  static async create(data: Product) {
     const { name, description, category_id, price, stock, image } = data
 
     const text = `
@@ -42,7 +42,7 @@ class ProductService {
     return result.rows[0]
   }
 
-  static async update(data: Products) {
+  static async update(data: Product) {
     const { name, description, category_id, price, stock, image, id } = data
 
     const text = `
