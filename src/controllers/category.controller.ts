@@ -48,12 +48,7 @@ class CategoryController {
   static async getCategories(req: Request, res: Response) {
     try {
       const categories = await CategoryService.find()
-
-      // Structure the data with nested category children
-      const result: Category[] = nestCategories(categories)
-      if (!result) return res.status(NOT_FOUND.code).json(NOT_FOUND)
-
-      res.json(result)
+      res.json(categories)
     } catch (error) {
       internalServerError(req, res, error)
     }

@@ -121,10 +121,10 @@ class ProductController {
       const ERROR = missingRequired({ id })
       if (ERROR) return res.status(ERROR.code).json(ERROR)
 
-      const products: Product = await ProductService.findOne({ id })
-      if (!products) return res.status(NOT_FOUND.code).json(NOT_FOUND)
+      const product: Product = await ProductService.findOne({ id })
+      if (!product) return res.status(NOT_FOUND.code).json(NOT_FOUND)
 
-      res.json(products)
+      res.json(product)
     } catch (error) {
       internalServerError(req, res, error)
     }

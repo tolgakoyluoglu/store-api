@@ -1,5 +1,6 @@
 import { Pool } from 'pg'
 import { log } from '../helpers/logger'
+// import seeder from '../config/migrations/index'
 
 const user: string = process.env.POSTGRES_USER as string
 const password: string = process.env.POSTGRES_PASSWORD as string
@@ -46,3 +47,5 @@ export async function getClient() {
 
   return client
 }
+
+// seeder()
