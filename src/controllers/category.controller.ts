@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { nestCategories } from '../helpers'
 import { internalServerError, missingRequired, NOT_FOUND } from '../helpers/responses'
 import CategoryService from '../services/category.service'
 import Category from '../types/category'
@@ -124,11 +123,11 @@ class CategoryController {
    */
   static async createCategory(req: Request, res: Response) {
     try {
-      const { name, parent_id } = req.body
-      const ERROR = missingRequired({ name })
+      const { name, description, parent_id } = req.body
+      const ERROR = missingRequired({ name, description })
       if (ERROR) return res.status(ERROR.code).json(ERROR)
 
-      const category: Category = await CategoryService.create({ name, parent_id })
+      const category: Category = await CategoryService.create({ name, description, parent_id })
       if (!category) return res.status(NOT_FOUND.code).json(NOT_FOUND)
 
       res.json(category)
@@ -174,11 +173,11 @@ class CategoryController {
    */
   static async updateCategory(req: Request, res: Response) {
     try {
-      const { id, name, parent_id } = req.body
+      const { id, name, description, parent_id } = req.body
       const ERROR = missingRequired({ id })
       if (ERROR) return res.status(ERROR.code).json(ERROR)
 
-      const category: Category = await CategoryService.update({ id, name, parent_id })
+      const category: Category = await CategoryService.update({ id, name, description, parent_id })
       if (!category) return res.status(NOT_FOUND.code).json(NOT_FOUND)
 
       res.json(category)

@@ -48,17 +48,19 @@ class CategoryService {
    ** Create category
    */
   static async create(data: Category) {
-    let { name, parent_id } = data
+    let { name, description, parent_id } = data
     if (!parent_id) parent_id = null
 
     const text = `
-    INSERT INTO categories (name, parent_id) 
+    INSERT INTO categories (name, description, parent_id)
     VALUES 
-      ($1, $2) RETURNING id, 
-      name, 
-      parent_id
+      ($1, $2, $3) RETURNING
+      id,
+      name,
+      parent_id,
+      description
     `
-    const values = [name, parent_id]
+    const values = [name, description, parent_id]
 
     const result = await query(text, values)
     return result.rows[0]
@@ -66,17 +68,18 @@ class CategoryService {
   /*
    ** Update category
    */
-  static async update(data: { id: string; name: string; parent_id: string }) {
-    const { id, name, parent_id } = data
+  static async update(data: Category) {
+    const { id, name, description, parent_id } = data
     const text = `
     UPDATE
       customers
     SET
       name = $1
       parent_id = $2
+      description = $3
     WHERE
       id = $3
-    RETURNING id, name, parent_id
+    RETURNING id, name, parent_id, description
     `
     const values = [name, parent_id, id]
     const result = await query(text, values)
